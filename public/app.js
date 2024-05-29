@@ -1,20 +1,23 @@
-const form = document.getElementById('payment-form');
+document.getElementById('payment-form').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault(); // prevent default form submission
-
-  // Simulate form validation (replace with actual validation logic)
-  const studentName = document.getElementById('student-name').value;
+  const name = document.getElementById('name').value;
   const matricNumber = document.getElementById('matric-number').value;
+  const email = document.getElementById('email').value;
   const cardNumber = document.getElementById('card-number').value;
   const expiryDate = document.getElementById('expiry-date').value;
   const cvv = document.getElementById('cvv').value;
 
-  if (!studentName || !matricNumber || !cardNumber || !expiryDate || !cvv) {
-    alert('Please fill out all required fields.');
-    return;
+  if (!validateCardNumber(cardNumber)) {
+      alert('Please enter a valid card number.');
+      return;
   }
 
-  // Simulate form submission (replace with actual payment processing)
-  alert(`Processing payment for ${studentName} with Matric Number ${matricNumber}`);
+  alert('Payment submitted successfully!');
 });
+
+function validateCardNumber(cardNumber) {
+  // Simple validation for card number (just checks for 16 digits)
+  const regex = /^\d{16}$/;
+  return regex.test(cardNumber);
+}
